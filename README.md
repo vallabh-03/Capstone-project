@@ -1,2 +1,32 @@
 # Capstone-project
 A capstone project for showcasing my skills on Machine learning and python
+
+# Module 1 — Data Pipeline
+
+## Overview
+
+This module implements a complete catalog data pipeline:
+
+Scrape → Clean → Convert Currency → Normalize → Store → Query → Validate
+
+The data source is Books to Scrape:
+
+https://books.toscrape.com/
+
+The website is a public scraping-practice website and does not require
+authentication or an API key.
+
+## Requirements
+
+- Python 3.9+
+- requests
+- beautifulsoup4
+- pandas
+- sqlite3 
+
+## Installation
+
+From the `data_pipeline` directory:
+
+```bash
+pip install -r requirements.txt
