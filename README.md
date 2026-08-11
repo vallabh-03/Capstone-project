@@ -26,10 +26,11 @@ authentication or an API key.
 
 ## Installation
 
-From the `data_pipeline` directory:
+From the repository root:
 
 ```bash
 pip install -r requirements.txt
+python scraping/run_pipeline.py
 
 ## Pipeline Status
 
