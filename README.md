@@ -24,14 +24,6 @@ authentication or an API key.
 - pandas
 - sqlite3 
 
-## Installation
-
-From the repository root:
-
-```bash
-pip install -r requirements.txt
-python scraping/run_pipeline.py
-
 ## Pipeline Status
 
 The data pipeline has been successfully tested end-to-end, including scraping, cleaning, currency conversion, SQLite loading, SQL analysis, and pandas validation.
@@ -43,3 +35,12 @@ The pipeline was tested successfully from scraping through data cleaning, transf
 ## Repository Status
 
 The Data Pipeline module is organized into separate components for scraping, cleaning, transformation, database operations, and analysis.
+
+## Installation
+
+From the repository root:
+
+```bash
+pip install -r requirements.txt
+python scraping/run_pipeline.py
+
