@@ -45,27 +45,53 @@ missing_summary = pd.DataFrame({
 
 print(missing_summary)
 
+# ---------------------------------------------------------
+# Age and Fare Distribution + IQR Outlier Analysis
+# ---------------------------------------------------------
+
+for column in ["age", "fare"]:
+    plt.figure(figsize=(8, 5))
+    plt.hist(df[column].dropna(), bins=30)
+    plt.title(f"{column.title()} Distribution")
+    plt.xlabel(column.title())
+    plt.ylabel("Frequency")
+    plt.show()
+
+    plt.figure(figsize=(8, 5))
+    plt.boxplot(df[column].dropna())
+    plt.title(f"{column.title()} Box Plot")
+    plt.ylabel(column.title())
+    plt.show()
+
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+
+    outlier_count = (
+        (df[column] < lower_bound) |
+        (df[column] > upper_bound)
+    ).sum()
+
+    print(f"{column.title()} IQR: {IQR:.2f}")
+    print(f"{column.title()} outlier count: {outlier_count}")
+
 # ============================================================
 # 4. DATA CLEANING
 # ============================================================
 
-
 for column in df.columns:
-
     missing_pct = df[column].isnull().mean() * 100
 
     if missing_pct == 0:
         continue
 
-    elif missing_pct < 10:
-
-        if pd.api.types.is_numeric_dtype(df[column]):
-            df[column] = df[column].fillna(df[column].median())
-        else:
-            df[column] = df[column].fillna(df[column].mode()[0])
+    elif missing_pct < 5:
+        df.dropna(subset=[column], inplace=True)
 
     elif missing_pct <= 30:
-
         if pd.api.types.is_numeric_dtype(df[column]):
             df[column] = df[column].fillna(df[column].median())
         else:
@@ -133,7 +159,8 @@ print("\n" + "=" * 60)
 print("CORRELATION MATRIX")
 print("=" * 60)
 
-numeric_df = df.select_dtypes(include=np.number)
+correlation_columns = ["survived", "pclass", "age", "sibsp", "parch", "fare"]
+numeric_df = df[correlation_columns]
 
 correlation_matrix = numeric_df.corr()
 
